@@ -1,0 +1,58 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+div#kontener{
+    display: flex;
+    height: 100vh;
+}
+div#lewastrona{
+    width: 25%;
+    background-color: whitesmoke;
+    padding: 20px;
+}
+div#logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+div#logo > img {
+    max-width: 100%;
+    height: auto;
+}
+div#filtry {
+    margin-top: 20px;
+}
+div#filtry > form { 
+display: flex;
+flex-direction: column;
+}
+label {
+    margin-bottom: 10px;
+}
+input[type="range"] {
+    margin-bottom: 20px;
+}
+div#ceny {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+button {
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+div#szukanie{
+    width: 75%;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div#szukanie > p {
+    font-size: 24px;
+    color: blue;
+}

@@ -1,0 +1,8 @@
+INSERT INTO adresy (ID, miasto, ulica, numer) VALUES ('','Warszawa','Syrenka','22');
+INSERT INTO stacje_paliw (id, nazwa, adres, cena_paliwa) VALUES ('', 'orlen','0','4,99');
+UPDATE stacje_paliw SET nazwa = 'bp' WHERE id = '0';
+SELECT s.id AS stacja_id, s.nazwa, a.miasto, a.ulica, a.numer, s.cena_paliwa FROM stacje_paliw s JOIN adresy a ON s.adres = a.id;
+DELETE FROM stacje_paliw WHERE id = 3;
+SELECT nazwa FROM stacje_paliw sp JOIN adresy a ON sp.adres = a.id WHERE a.miasto = 'Warszawa';
+SELECT s.nazwa, s.cena_paliwa, a.miasto, a.ulica, a.numer FROM stacje_paliw s JOIN adresy a ON s.adres = a.id WHERE s.cena_paliwa BETWEEN 1.25 AND 6.50;
+sadad
