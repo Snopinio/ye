@@ -9,16 +9,19 @@
 </head>
 
 <body>
+
     <div id="kontener">
         <div id="lewastrona">
             <div id="logo">
                 <img src="jasper.jpg" alt="logo">
             </div>
-            <input type="text" id="station" placeholder="Wpisz nazwę stacji">
+            <form action="stacje.php" method="post">
+                <button type="submit">WSZYTSKIE STACJE</button>
+            </form>
+            <input type="text" id="stacja" placeholder="Wpisz nazwę stacji">
 
-            <label for="city">Miasto</label>
-            <select id="city">
-                <option value="">Wybierz miasto</option>
+            <label for="miasto">Miasto</label>
+            <select id="miasto">
                 <option value="Warszawa">Warszawa</option>
                 <option value="Kraków">Kraków</option>
                 <option value="Gdańsk">Gdańsk</option>
@@ -27,27 +30,19 @@
             </select>
 
             <div id="filtry">
-                <form>
-                    <label for="zakres-ceny"><h1>Zakres cenowy</h1></label>
-                    <input type="range" id="min-price" value="1.00" step="0.01">
-                    <div id="ceny">
-                        <span>Cena od: 1 pln</span>
-                    </div>
-                    <input type="range" id="max-price" value="9.99" step="0.01">
-                    <div id="ceny">
-                        <span>Cena do: 100 pln</span>
-                    </div>
-                    <button type="submit">RESTET</button>
-                    <button type="submit">SZUKAJ</button>
-                </form>
+                    <form method="post" action="stacja.php">
+                        <label for="min_price">Cena minimalna:</label>
+                        <input type="number" step="0.01" name="min_price" id="min_price"
+                            value="<?php echo $min_price; ?>">
+                        <label for="max_price">Cena maksymalna:</label>
+                        <input type="number" step="0.01" name="max_price" id="max_price"
+                            value="<?php echo $max_price; ?>">
+                        <input type="submit">
+                    </form>
             </div>
         </div>
         <div id="szukanie">
-            <?php
-            $baza = new mysqli('localhost', 'root', '', 'stacjepaliw');
-            <!
-            $baza->close();
-            ?>
+        
         </div>
     </div>
 </body>

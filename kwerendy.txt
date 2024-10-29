@@ -5,4 +5,3 @@ SELECT s.id AS stacja_id, s.nazwa, a.miasto, a.ulica, a.numer, s.cena_paliwa FRO
 DELETE FROM stacje_paliw WHERE id = 3;
 SELECT nazwa FROM stacje_paliw sp JOIN adresy a ON sp.adres = a.id WHERE a.miasto = 'Warszawa';
 SELECT s.nazwa, s.cena_paliwa, a.miasto, a.ulica, a.numer FROM stacje_paliw s JOIN adresy a ON s.adres = a.id WHERE s.cena_paliwa BETWEEN 1.25 AND 6.50;
-sadad
