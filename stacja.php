@@ -1,70 +1,45 @@
-<!DOCTYPE html>
-<html lang="pl">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Najtańsze paliwo</title>
-    <link rel="stylesheet" href="styl.css">
-</head>
+$conn = new mysqli('localhost', 'root', '', 'stacjepaliw');
 
-<body>
+// Pobranie wartości ceny z formularza
+if (isset($_POST['max-price'])) {
+    $cena = (float)$_POST['max-price'];  
+    echo "Otrzymana cena z formularza: " . $cena . " PLN<br>";
+} else {
+    die("Brak ustawionej wartości ceny.");
+} 
 
-    <div id="kontener">
-        <div id="lewastrona">
-            <div id="logo">
-                <img src="jasper.jpg" alt="logo">
-            </div>
-            <form action="stacje.php" method="post">
-                <button type="submit">WSZYTSKIE STACJE</button>
-            </form>
-            <input type="text" id="stacja" placeholder="Wpisz nazwę stacji">
+// Zapytanie SQL do bazy danych
+$sql = "SELECT stacje_paliw.nazwa, adresy.miasto, adresy.ulica, adresy.numer, stacje_paliw.cena_paliwa 
+        FROM stacje_paliw 
+        JOIN adresy ON stacje_paliw.adres = adresy.id 
+        WHERE stacje_paliw.cena_paliwa <= ?";
 
-            <label for="miasto">Miasto</label>
-            <select id="miasto">
-                <option value="Warszawa">Warszawa</option>
-                <option value="Kraków">Kraków</option>
-                <option value="Gdańsk">Gdańsk</option>
-                <option value="Wrocław">Wrocław</option>
-                <option value="Poznań">Poznań</option>
-            </select>
+$stmt = $conn->prepare($sql);
 
-            <div id="filtry">
-                <form id="filter-form">
-                    <form method="post" action="stacja.php">
-                        <label for="min_price">Cena minimalna:</label>
-                        <input type="number" step="0.01" name="min_price" id="min_price"
-                            value="<?php echo $min_price; ?>">
-                        <label for="max_price">Cena maksymalna:</label>
-                        <input type="number" step="0.01" name="max_price" id="max_price"
-                            value="<?php echo $max_price; ?>">
-                        <input type="submit">
-            </div>
-        </div>
-        <div id="szukanie">
-        <?php
+if ($stmt === false) {
+    die("Błąd przygotowania zapytania: " . $conn->error);
+}
 
-            $baza = new mysqli('localhost', 'root', '', 'stacjepaliw');
+$stmt->bind_param("d", $cena);
+$stmt->execute();
+$result = $stmt->get_result();
 
-            // Przechwycenie wartości z formularza
-            $station = isset($_GET['stacja']) ? $_GET['stacja'] : '';
-            $city = isset($_GET['miasto']) ? $_GET['miasto'] : '';
-            $min_price = isset($_GET['min_price']) ? (float)$_GET['min_price'] : 0;
-            $max_price = isset($_GET['max_price']) ? (float)$_GET['max_price'] : PHP_INT_MAX;
+if ($result === false) {
+    die("Błąd wykonania zapytania: " . $conn->error);
+}
 
-            $q = "SELECT sp.nazwa AS nazwa_stacji, sp.cena_paliwa AS cena, a.miasto AS miasto, a.ulica AS ulica, a.numer AS numer
-                  FROM stacje_paliw sp 
-                  JOIN adresy a ON sp.adres = a.id 
-                  WHERE sp.nazwa LIKE ? AND a.miasto LIKE ? AND sp.cena_paliwa BETWEEN ? AND ?";
-                
+// Wyświetlanie wyników
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "Stacja: " . $row["nazwa"] . " - " . $row["miasto"] . ", " . $row["ulica"] . " " . $row["numer"] . " - Cena: " . $row["cena_paliwa"] . " PLN<br>";
+    }
+} else {
+    echo "Brak stacji spełniających kryteria.<br>";
+}
 
-            $baza->close();
-        ?>
-        </div>
-    </div>
-</body>
-
-</html>
-
+$stmt->close();
+$conn->close();
 
 
