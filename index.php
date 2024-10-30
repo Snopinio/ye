@@ -31,13 +31,18 @@
 
             <div id="filtry">
                     <form method="post" action="stacja.php">
-                        <label for="min_price">Cena minimalna:</label>
-                        <input type="number" step="0.01" name="min_price" id="min_price"
-                            value="<?php echo $min_price; ?>">
-                        <label for="max_price">Cena maksymalna:</label>
-                        <input type="number" step="0.01" name="max_price" id="max_price"
-                            value="<?php echo $max_price; ?>">
-                        <input type="submit">
+                    <label for="zakres-ceny"><h1>Zakres cenowy</h1></label>
+                    <div id="ceny-min">
+                        <span>Cena od: <span id="min-price-display">1.00</span> PLN</span>
+                    </div>
+                    <input type="range" id="min-price" min="1.00" max="9.99" value="1.00" step="0.01" oninput="updatePriceDisplay()">
+
+                    <input type="range" id="max-price" min="1.00" max="9.99" value="9.99" step="0.01" oninput="updatePriceDisplay()">
+                    <div id="ceny-max">
+                        <span>Cena do: <span id="max-price-display">9.99</span> PLN</span>
+                    </div>
+                    <button type="button" onclick="resetFilters()">RESET</button>
+                    <button type="button" onclick="search()">SZUKAJ</button>
                     </form>
             </div>
         </div>
@@ -45,6 +50,10 @@
         
         </div>
     </div>
-</body>
+    <script>
 
+        
+    </script>
+</body>
+<script src="suwaki.js"></script>
 </html>
