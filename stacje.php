@@ -30,11 +30,11 @@
             <div id="filtry">
                     <form method="post" action="stacja.php">
                         <label for="min_price">Cena minimalna:</label>
-                        <input type="number" step="0.01" name="min_price" id="min_price"
-                            value="<?php echo $min_price; ?>">
+                        <input type="range" step="0.01" name="min_price" id="min_price"
+                            value="1" max="9.99">
                         <label for="max_price">Cena maksymalna:</label>
-                        <input type="number" step="0.01" name="max_price" id="max_price"
-                            value="<?php echo $max_price; ?>">
+                        <input type="range" step="0.01" name="max_price" id="max_price"
+                            value="9.99" max="9.99">
                         <input type="submit">
                     </form>
             </div>
